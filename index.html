@@ -387,19 +387,24 @@
                 
 		//MENU SELECTED
 		jQuery('.filter').click(function() {
+                        var category = jQuery(this).data('category');
                         if(mutex){
                             mutex = false;
-                            jQuery('.filter').each(function() { jQuery(this).removeClass("selected")});
-                            api.megafilter(jQuery(this).data('category'));
-                            jQuery(this).addClass("selected");
-                            
+                            selectCategory(category);
+//                            jQuery(this).addClass("selected");
                             setTimeout(function() {
                                 mutex = true;
                             }, options.filterChangeSpeed + 100);
-                            
                         }
 		});
 		
+                
+                function selectCategory(cat){
+                    window.location.hash = cat;
+                    jQuery('.filter').each(function() { jQuery(this).removeClass("selected")});
+                    api.megafilter(cat);
+//                    $('a.filter:data(category=='+cat+')').addClass("selected");
+                }
 		
 	});
 </script>
