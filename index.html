@@ -49,14 +49,14 @@
     	<div id="haeder-box">
         	
             <div id="logo">
-            	<a href="#">
+            	<a href="/">
 	            	<img src="img/logo.png" alt="Smještaj Višegrad">
 				</a>
             </div>
             
             <nav>
             	<ul>
-                	<li><a class="filtgjgjhger" data-category="all">Početna</a></li>
+                	<li><a class="filter selected" data-category="all">Početna</a></li>
                 	<li><a class="filter" data-category="hotel">Hoteli</a></li>
                 	<li><a class="filter" data-category="motel">Moteli</a></li>
                 	<li><a class="filter" data-category="apartman">Apartmani</a></li>
@@ -384,6 +384,7 @@
 		var api=jQuery('.megafolio-container').megafoliopro(options);
 
 		var mutex = true;
+                initialSelection();
                 
 		//MENU SELECTED
 		jQuery('.filter').click(function() {
@@ -391,19 +392,23 @@
                         if(mutex){
                             mutex = false;
                             selectCategory(category);
-//                            jQuery(this).addClass("selected");
                             setTimeout(function() {
                                 mutex = true;
                             }, options.filterChangeSpeed + 100);
                         }
 		});
 		
+                function initialSelection(){
+                    var category = window.location.hash.replace('#', '');
+                    console.log(category);
+                    if(category) selectCategory(category);
+                }
                 
                 function selectCategory(cat){
                     window.location.hash = cat;
                     jQuery('.filter').each(function() { jQuery(this).removeClass("selected")});
                     api.megafilter(cat);
-//                    $('a.filter:data(category=='+cat+')').addClass("selected");
+                    $("a.filter[data-category='"+ cat +"']").addClass("selected");
                 }
 		
 	});
